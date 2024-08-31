@@ -1,7 +1,41 @@
 import React from "react";
+import "./reviews.css";
+import ReviewCard from "../../componets/ReviewCard/Reviewcard.js";
 
-function page() {
-  return <div>page</div>;
+export default function ReviewsPage() {
+  // Sample reviews data
+  const reviews = [
+    {
+      name: "John Doe",
+      picture: "/images/john-doe.jpg",
+      review: "This platform has been a game-changer for my career!",
+    },
+    {
+      name: "Jane Smith",
+      picture: "/images/jane-smith.jpg",
+      review:
+        "I’ve connected with so many professionals through Networking Hub.",
+    },
+    {
+      name: "Michael Johnson",
+      picture: "/images/michael-johnson.jpg",
+      review: "The community here is supportive and inspiring.",
+    },
+  ];
+
+  return (
+    <div className="reviews-page">
+      <h1>Fellow Reviews</h1>
+      <div className="reviews-list">
+        {reviews.map((review, index) => (
+          <ReviewCard
+            key={index}
+            name={review.name}
+            picture={review.picture}
+            review={review.review}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
-
-export default page;
