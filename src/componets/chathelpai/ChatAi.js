@@ -1,19 +1,26 @@
 "use client";
-import { useState, useContext } from "react";
-import { Button, Typography, Paper, Box, TextField } from "@mui/material";
+import { useState } from "react";
+import { TextField, Button } from "@mui/material";
 import { keyframes } from "@emotion/react";
-
 import "./chat.css";
 
-const bounce = keyframes`
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
+// Animation for user message
+const slideInRight = keyframes`
+  0% {
+    transform: translateX(100%);
   }
-  40% {
-    transform: translateY(-30px);
+  100% {
+    transform: translateX(0);
   }
-  60% {
-    transform: translateY(-15px);
+`;
+
+// Animation for AI message
+const slideInLeft = keyframes`
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
   }
 `;
 
@@ -55,7 +62,6 @@ export default function ChatArea() {
 
         setMessages((prevMessages) => [
           ...prevMessages,
-
           { role: "ai", text: `AI: ${data.message}`, id: Date.now() },
         ]);
       } catch (error) {
@@ -90,11 +96,22 @@ export default function ChatArea() {
           value={inputValue}
           onChange={handleInputChange}
           placeholder="Type your message..."
-          className="message-input"
           variant="outlined"
           fullWidth
-          sx={{ mb: 2 }}
+          sx={{
+            background: "rgba(255, 255, 255, 0.9)",
+            borderRadius: "8px",
+            input: { color: "#333" },
+          }}
         />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className="send-button"
+        >
+          Send
+        </Button>
       </form>
     </div>
   );
