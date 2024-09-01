@@ -26,16 +26,22 @@ export default function ReviewsPage() {
   return (
     <div className="reviews-page">
       <h1>Fellow Reviews</h1>
-      <div className="reviews-list">
-        {reviews.map((review, index) => (
-          <ReviewCard
-            key={index}
-            name={review.name}
-            picture={review.picture}
-            review={review.review}
-          />
-        ))}
-      </div>
+      {reviews.length === 0 ? (
+        <p className="no-reviews">
+          No reviews yet. Be the first to share your experience!
+        </p>
+      ) : (
+        <div className="reviews-grid">
+          {reviews.map((review, index) => (
+            <ReviewCard
+              key={index}
+              name={review.name}
+              picture={review.picture}
+              review={review.review}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

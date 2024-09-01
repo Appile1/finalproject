@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Header from "../componets/header/header.js";
 import ChatButton from "../componets/chatbutton/ChatButton.js";
 import { ClerkProvider } from "@clerk/nextjs";
 
@@ -20,6 +21,8 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
+          <Header />
+
           {children}
           <ChatButton />
         </body>

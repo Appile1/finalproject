@@ -1,18 +1,23 @@
 .reviews-page {
   padding: 40px 20px;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   text-align: center;
 }
 
 .reviews-page h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 40px;
   color: #333;
 }
 
-.reviews-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.no-reviews {
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
 }

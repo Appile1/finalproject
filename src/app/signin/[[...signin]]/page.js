@@ -1,6 +1,10 @@
 import { SignIn } from "@clerk/nextjs";
 import React from "react";
-
-export default function page() {
-  return <SignIn />;
+import "./sign.css";
+export default function Signin() {
+  return (
+    <div className="sign-in-container">
+      <SignIn />
+    </div>
+  );
 }

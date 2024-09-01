@@ -1,29 +1,72 @@
 .review-card {
   display: flex;
+  justify-content: center;
   align-items: center;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
   margin-bottom: 20px;
+  perspective: 1000px; /* Adds perspective for 3D effects */
+}
+
+.review-card-inner {
+  width: 100%;
+  max-width: 600px; /* Increased max-width for larger cards */
+  height: 250px; /* Fixed height to ensure consistent card size */
+  display: flex;
+  flex-direction: column; /* Column layout to handle content better */
+  align-items: center;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d; /* Enables 3D transformations */
+  padding: 20px; /* Added padding to ensure content spacing */
+}
+
+.review-card:hover .review-card-inner {
+  transform: rotateY(5deg); /* Subtle 3D effect */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
 
 .review-picture {
-  width: 60px;
-  height: 60px;
+  width: 100px; /* Increased width for larger pictures */
+  height: 100px; /* Increased height for larger pictures */
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 20px;
+  border: 3px solid #e0e0e0;
+  transition: transform 0.3s ease;
+}
+
+.review-card-inner:hover .review-picture {
+  transform: scale(1.1); /* Slightly enlarges the picture on hover */
+}
+
+.review-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center; /* Centered text */
 }
 
 .review-content h3 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.5rem; /* Increased font size for better readability */
   color: #333;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.review-card-inner:hover .review-content h3 {
+  color: #009688; /* Changes text color on hover */
 }
 
 .review-content p {
-  margin: 5px 0 0;
-  font-size: 1rem;
-  color: #555;
+  margin: 10px 0 0;
+  font-size: 1.2rem; /* Increased font size for better readability */
+  color: #666;
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+.review-card-inner:hover .review-content p {
+  color: #555; /* Darkens text color on hover */
 }
