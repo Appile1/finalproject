@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useUser, SignOutButton } from "@clerk/nextjs";
+import { useUser, SignOutButton, UserButton } from "@clerk/nextjs";
 import "./header.css";
 import Link from "next/link";
 
@@ -26,9 +26,7 @@ function Header() {
               <Link href="/dashboard" className="nav-link">
                 Dashboard
               </Link>
-              <SignOutButton className="sign-out-button">
-                Sign Out
-              </SignOutButton>
+              <UserButton />
             </>
           ) : (
             <Link href="/signin" className="nav-link">
