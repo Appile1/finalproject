@@ -1,6 +1,52 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import "./page.css";
+import { z } from "zod";
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const schema = z.object({
+  email: z.string().email({ message: "Please enter a valid email address" }).min(1, "Email address is required"),
+});
+
+type FormData = z.infer<typeof schema>;
+
 export default function Home() {
+  const [successMessage, setSuccessMessage] = useState('');
+  const { register, handleSubmit, formState: { errors, isSubmitting }, clearErrors, setError, reset } = useForm<FormData>(
+    {
+      resolver: zodResolver(schema)
+    }
+  );
+  const onSubmit: SubmitHandler<FormData> = async (data: any) => {
+    const res = await fetch('/api/waiting', {
+      method: 'POST',
+      headers: {
+        contentType: 'application/json'
+      },
+      body: JSON.stringify({
+        email: data.email
+      })
+    })
+    if (!res.ok || res.status === 500 || res.status === 409) {
+      console.log("error saving email");
+      const result = await res.json();
+      setError("email", { type: "manual", message: result.message });
+    }
+    else {
+
+      console.log("email saved to waiting list");
+      const result = await res.json();
+      setSuccessMessage(result.message)
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 2000);
+      reset();
+    }
+    setTimeout(() => {
+      clearErrors("email")
+    }, 2000)
+  }
   return (
     <div>
       {/* Hero Section */}
@@ -18,6 +64,18 @@ export default function Home() {
             <a href="#features" className="btn-secondary">
               Learn More
             </a>
+          </div>
+        </div>
+        <div className="mt-10 flex flex-col items-center">
+          <div className=" border-2 py-6 px-4 shadow-md shadow-slate-300 border-white max-w-fit items-center">
+            <h1 className="mb-2 font-semibold text-xl ">Join the waiting list</h1>
+            <form action="#" onSubmit={handleSubmit(onSubmit)} className=" flex justify-center ">
+              <label htmlFor="email"></label>
+              <input type="text" {...register("email")} className="py-1 pl-1 border-2 rounded-lg border-slate-400 focus:outline-none focus:border-orange-800 text-black bg- " />
+              <button type="submit" className="bg-orange-600 px-2 py-1 ml-1 rounded-md hover:bg-orange-700">Notify Me</button>
+            </form>
+            {errors.email && <div className='text-red-600 text-sm font-semibold mr-20'>{errors.email.message}</div>}
+            {successMessage && <div className='text-green-700 text-sm font-semibold mr-14 mt-1'>{successMessage}</div>}
           </div>
         </div>
       </section>

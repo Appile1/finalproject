@@ -9,12 +9,17 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
   username String
   email    String @id @unique
   password String
+}
+
+model Waitinglist {
+  email String @id @unique
 }
